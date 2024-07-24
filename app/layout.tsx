@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
+import Navbar from './component/Navbar';
 
-
+import './globals.css';
 export const metadata: Metadata = {
-  title: "Medium app",
+  title: 'Medium app',
 };
 
 export default function RootLayout({
@@ -11,8 +12,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html >
-      <body>{children}</body>
+    <html>
+      <body>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

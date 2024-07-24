@@ -1,6 +1,8 @@
-import bcrypt from 'bcrypt';
-export const hashPassword = async (plainPassword: string) => {
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
-  return hashPassword;
+import crypto from 'crypto';
+export const hashPassword = (plainPassword: string) => {
+  const ans = crypto
+    .createHmac('sha256', 'secret')
+    .update(plainPassword)
+    .digest('hex');
+  return ans;
 };
