@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { redirect } from 'next/navigation';
 
-const baseURL = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:3000',
+const baseURL =
+    process.env.NEXT_PUBLIC_BACKEND_API || 'https://medium-ba74.vercel.app',
   isServer = typeof window === 'undefined';
 
 console.log(baseURL, 'base url');
