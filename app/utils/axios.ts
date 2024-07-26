@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { redirect } from 'next/navigation';
 
-const baseURL = process.env.BACKEND_API || 'cannot read',
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_API || 'cannot read',
   isServer = typeof window === 'undefined';
 
 console.log(baseURL, 'base url');
-console.log(process.env.PORT, 'port');
+console.log(process.env.NEXT_PUBLIC_PORT, 'port');
 const api = axios.create({
   baseURL,
   headers: {
