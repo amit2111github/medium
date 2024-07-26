@@ -6,6 +6,7 @@ const baseURL =
   isServer = typeof window === 'undefined';
 
 console.log(baseURL, 'base url');
+console.log(process.env.NEXT_PUBLIC_PORT, 'port');
 const api = axios.create({
   baseURL,
   headers: {
