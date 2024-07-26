@@ -1,7 +1,19 @@
 import Link from 'next/link';
 import React from 'react';
+import { cookies } from 'next/headers';
+import api from '../utils/axios';
+import Profile from './Profile';
 
-function Navbar() {
+async function Navbar() {
+  // console.log('inside navbar');
+  const cookieStore = cookies();
+  const token = cookieStore.get('token')?.value;
+  // console.log(token);
+  const data: any = await api.get('/api/user', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return (
     <div className="flex justify-between py-2 border-b">
       <div className="flex flex-col justify-center">
@@ -20,31 +32,28 @@ function Navbar() {
         </svg>
       </div>
 
-      <div className="flex">
-        <Link href="/post/new">
-          <button
-            type="button"
-            className="text-white bg-gray-800 focus:outline-none focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2"
-          >
-            Publish
-          </button>
-        </Link>
-        <Link href="/signin">
-          <button
-            type="button"
-            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2"
-          >
-            Sign in
-          </button>
-        </Link>
-        <Link href="/signout">
-          <button
-            type="button"
-            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2"
-          >
-            Signout
-          </button>
-        </Link>
+      <div className="flex pr-2">
+        {token && (
+          <Link href="/post/new">
+            <button
+              type="button"
+              className="text-white bg-gray-800 focus:outline-none focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2"
+            >
+              Publish
+            </button>
+          </Link>
+        )}
+        {!token && (
+          <Link href="/signin">
+            <button
+              type="button"
+              className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2"
+            >
+              Sign in
+            </button>
+          </Link>
+        )}
+        {token && <Profile name={data.name} email={data.email} />}
       </div>
     </div>
   );

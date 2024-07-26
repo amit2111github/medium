@@ -1,9 +1,10 @@
+import { redirect } from 'next/navigation';
 import PostList from './component/PostList';
-
+import { cookies } from 'next/headers';
 export default function Home() {
-  return (
-    <div>
-      <PostList />
-    </div>
-  );
+  const cookieStore = cookies();
+  const token = cookieStore.get('token')?.value;
+  console.log(token);
+  if (token) redirect('/post');
+  else redirect('/login');
 }

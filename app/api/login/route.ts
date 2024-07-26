@@ -24,17 +24,18 @@ export const POST = async (req: NextRequest) => {
     const id: string = rows[0].id;
 
     const token = await jwt.sign({ id }, 'somesecret', { expiresIn: '1h' });
-    const expire = 1000 * 60 * 60;
+    const expire = 60 * 60;
     return NextResponse.json(
       { token },
       {
         headers: {
-          'Set-Cookie': `token=${token}; expiresIn=${expire}/; HttpOnly=true; SameSite=lax`,
+          'Set-Cookie': `token=${token}; Max-Age=${expire}; HttpOnly; SameSite=None; Secure; Path=/;`,
           'Content-Type': 'application/json',
         },
       }
     );
   } catch (err) {
+    console.log(err);
     return NextResponse.json({ msg: 'Failed to Login' }, { status: 403 });
   }
 };
