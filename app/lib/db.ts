@@ -1,9 +1,10 @@
 import { Pool } from 'pg';
 
-export const pool = new Pool({
-  password: process.env.NEXT_PUBLIC_PASSWORD,
-  user: process.env.NEXT_PUBLIC_USER,
-  port: Number(process.env.NEXT_PUBLIC_PORT),
-  database: process.env.NEXT_PUBLIC_DATABASE,
-  host: process.env.NEXT_PUBLIC_HOST,
+const pool = new Pool({
+  connectionString:
+    'postgres://avnadmin:AVNS_XiOjmtci2zGVRfq8Vk7@pg-2ddd6520-amit-e988.g.aivencloud.com:13416/defaultdb?sslmode=require',
+  // Optionally, you can include other settings here
+  ssl: {
+    rejectUnauthorized: false, // Set to true in production for security
+  },
 });

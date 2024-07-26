@@ -6,5 +6,5 @@ export default function Home() {
   const token = cookieStore.get('token')?.value;
   console.log(token);
   if (token) redirect('/post');
-  else redirect('/login');
+  else redirect('/signin');
 }
