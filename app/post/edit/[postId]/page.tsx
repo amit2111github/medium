@@ -16,14 +16,14 @@ async function page({ params }: { params: { postId: string } }) {
       Authorization: `Beares ${token}`,
     },
   });
+  console.log(post, 'for edit');
   const data: any = await api.get('api/user', {
     headers: {
       Authorization: `Beares ${token}`,
     },
   });
   if (post.authorid != data.id) {
-    // alert('Not Authorized');
-    redirect(`/post/${post.id}`);
+    window.location.href = '/post/' + post.id;
   }
   return (
     <div>

@@ -12,9 +12,10 @@ const fetchPost = async (token: string, id: number) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(data, 'from full page');
     return data;
   } catch (err) {
-    // console.log('failed to find post');
+    console.log('failed to find post', err);
   }
 };
 

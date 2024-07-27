@@ -29,10 +29,12 @@ export const POST = async (req: NextRequest) => {
 
 export const GET = async (req: NextRequest) => {
   try {
-    const obj: any = req.headers.get('user');
-    const user = JSON.parse(obj);
+    // const searchParams = req.nextUrl;
+    const page = req.nextUrl.searchParams.get('page');
+
     const { rows } = await pool.query(
-      'select p.id , p.title,p.content,a.id as authorId ,a.name as authorName,a.email as authorEmail from post p join author a on p.authorid = a.id'
+      'select p.id , substr(p.title , 1,70) as title ,substr(p.content, 1,300) as content ,a.id as authorId ,a.name as authorName,a.email as authorEmail from post p join author a on p.authorid = a.id limit 10 offset $1',
+      [(Number(page) - 1) * 10]
     );
     return NextResponse.json(rows);
   } catch (err) {
